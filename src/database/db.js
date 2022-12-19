@@ -4,4 +4,6 @@ dotenv.config();
 
 const { Pool } = pg;
 
-export default connectionDb = new Pool(process.env.DATABASE_URL);
+export const connectionDb = new Pool({
+  connectionString: process.env.DATABASE_URL,
+});
