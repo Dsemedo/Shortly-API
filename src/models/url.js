@@ -1,7 +1,7 @@
 import joi from "joi";
 
 export const urlSchema = joi.object({
-  linkUrl: joi
+  url: joi
     .string()
     .uri()
     .regex(
