@@ -19,9 +19,43 @@ export async function postUrl(req, res) {
 }
 
 export async function getUrl(req, res) {
+  const { id } = req.params;
+
   try {
-    const users = await connectionDb.query("SELECT * FROM urls;");
-    res.send(users.rows);
+    const users = await connectionDb.query(
+      'SELECT urls.id, urls."shortUrl", url FROM urls WHERE urls.id = $1;',
+      [id]
+    );
+
+    if (users.rows < 2) {
+      res.sendStatus(404);
+    } else {
+      res.status(200).send(users.rows);
+    }
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+}
+
+export async function openUrl(req, res) {
+  const { shortUrl } = req.params;
+
+  try {
+    await connectionDb.query(
+      'UPDATE urls SET visitors = visitors+1 WHERE "shortUrl"=$1;',
+      [shortUrl]
+    );
+
+    const shortUrlExists = await connectionDb.query(
+      'SELECT * FROM urls WHERE urls."shortUrl" = $1;',
+      [shortUrl]
+    );
+
+    if (!shortUrlExists) {
+      res.sendStatus(404);
+    } else {
+      res.redirect(shortUrlExists.rows[0].url);
+    }
   } catch (err) {
     res.status(500).send(err.message);
   }
