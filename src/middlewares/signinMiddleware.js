@@ -14,3 +14,7 @@ export async function validSchemaSignin(req, res, next) {
 
   next();
 }
+
+export async function validIdUser(req, res, next){
+  
+}
