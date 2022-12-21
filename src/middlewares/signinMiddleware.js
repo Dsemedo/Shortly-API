@@ -12,9 +12,7 @@ export async function validSchemaSignin(req, res, next) {
     return res.status(422).send({ errors });
   }
 
-  next();
-}
-
-export async function validIdUser(req, res, next){
   
+
+  next();
 }
