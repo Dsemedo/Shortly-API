@@ -7,5 +7,5 @@ export const signupSchema = joi.object({
     tlds: { allow: ["com", "net"] },
   }),
   password: joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")),
-  repeat_password: joi.ref("password"),
+  confirmPassword: joi.ref("password"),
 });
