@@ -3,9 +3,9 @@ import { connectionDb } from "../database/db.js";
 export async function getRanking(req, res) {
   try {
     const ranking = await connectionDb.query(
-      `SELECT users.id, users.name, COUNT(urls.id) AS "linksCount", SUM(urls.visitors)  AS "visitCount"
+      `SELECT users.id, users.name, COUNT(urls.id) AS "linksCount", COALESCE(SUM(urls.visitors),0)  AS "visitCount"
         FROM users
-        JOIN urls
+        LEFT JOIN urls
         ON users.id = urls."userId"
         GROUP BY users.id
         ORDER BY "visitCount" DESC
