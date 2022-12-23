@@ -17,7 +17,7 @@ export async function createUser(req, res) {
   }
 }
 
-export async function getUser(req, res) {
+export async function getUserDevelopment(req, res) {
   try {
     const users = await connectionDb.query("SELECT * FROM users;");
     res.send(users.rows);
