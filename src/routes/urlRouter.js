@@ -12,6 +12,6 @@ const router = Router();
 router.post("/urls/shorten", validSchemaUrl, postUrl);
 router.get("/urls/:id", getUrl);
 router.get("/urls/open/:shortUrl", openUrl);
-router.get("/url/:id", validIdUrl, deleteUrl);
+router.delete("/url/:id", validIdUrl, deleteUrl);
 
 export default router;
